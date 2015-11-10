@@ -1,0 +1,464 @@
+#!/usr/bin/env python
+
+import sys
+import re
+import time
+import datetime
+import random
+import yaml
+from pprint import pprint
+from twisted.internet import reactor, task, defer, protocol
+from twisted.python import log
+from twisted.words.protocols import irc
+from twisted.web.client import getPage
+from twisted.application import internet, service
+from random import choice
+from collections import defaultdict
+
+HOST, PORT = 'irc.bne.redhat.com', 6667
+SOURCEFILE = "beerbot.yaml"
+
+# users that can issue control comands to beerbot.
+# This list does not do rename detection
+GOD_USERS = [ "whot" ]
+
+# Commands that can be issued by any user
+commands = []
+commands_src = [
+        { "command" : "listen",
+          "func" : "func_noop",
+          "god_cmd" : True,
+          },
+        { "command" : "unignore",
+          "func" : "func_unignore",
+          "god_cmd" : True,
+          },
+        { "command" : "ignore",
+          "func" : "func_ignore",
+          "god_cmd" : True,
+          },
+        { "command" : "wakeup",
+          "func" : "func_wakeup",
+          "god_cmd" : False,
+          "awake_only" : False,
+          "needs_please" : False
+          },
+        { "command" : "finish",
+          "func" : "func_finish",
+          "god_cmd" : True,
+          },
+        { "command" : "addpub",
+          "func" : "func_add_pub",
+          "god_cmd" : True,
+          },
+        { "command" : "tally",
+          "func" : "func_tally"
+        },
+        { "command" : "verdict",
+          "func" : "func_verdict"
+        },
+        { "command" : "changevote",
+          "func" : "func_cancel_vote"
+        },
+        { "command": "listpubs",
+          "func" : "func_list_pubs"
+        },
+        { "command": "shutup",
+          "func" : "func_shut_up",
+          "awake_only" : False,
+          "needs_please" : False
+        },
+]
+
+pubs = [ "archive", "trans", "murphys", "belgian", "brew", "joynt", "cicada", "criterion", "scratch" ]
+
+class BeerBotReply(object):
+    def __init__(self, answers):
+        super(self.__class__, self).__init__()
+        self.answers = dict((x, 0) for x in answers)
+
+    def next(self):
+        """Get three answers by random, return the one with the lowest usage count"""
+        possibles = [choice(self.answers.keys()) for x in range(0, 3)]
+        possibles.sort(cmp=lambda x,y: cmp(self.answers[x], self.answers[y]))
+
+        answer = possibles[0]
+        self.answers[answer] += 1
+        return answer
+
+class BeerBotCommand(object):
+    awake_only = True
+    needs_please = True
+    god_cmd = False
+    triggers = []
+    replies = []
+
+    def __init__(self, cmd, textdata):
+        for k, v in cmd.iteritems():
+            setattr(self, k, v)
+
+        commands = textdata['commands']
+        for cmd_name, data in commands.iteritems():
+            if cmd_name != "command_%s" % self.command:
+                continue
+            self.triggers = data["commands"]
+            if data["replies"] != None:
+                self.replies = BeerBotReply(data["replies"])
+
+    def triggered_by(self, msg):
+        for trigger in self.triggers:
+            if trigger in msg:
+                return True
+        return False
+
+    def __repr__(self):
+        return self.command + ": " + ",".join(self.triggers)
+
+
+class BeerBotProtocol(irc.IRCClient):
+    nickname = "beerbot"
+    realname = "You really think I have name?"
+
+    user_names = {}
+
+    private_users = {}
+    ignore_users = []
+    done = False
+    replies = {}
+
+    votes = defaultdict(list)
+
+    awake = False
+
+    def reply_to_user(self, channel, nick, msg):
+        self.msg(channel, "%s: %s" % (nick, msg))
+
+    def pick_reply(self, type="invalid"):
+        '''Extension of random.choice command with weighting'''
+        return self.replies[type].next()
+
+    def validate_cmd(self, cmd, nick, channel, msg):
+        if cmd.god_cmd:
+            if nick not in GOD_USERS:
+                self.reply_to_user(channel, nick, self.pick_reply("ungodly"))
+                return False
+            return True
+
+        if cmd.awake_only and not self.awake and not nick in GOD_USERS:
+            return False
+
+        if cmd.needs_please and re.match(".*please.*", msg) == None:
+            self.reply_to_user(channel, nick, self.pick_reply("badcommand"))
+            return False
+
+        return True
+
+    def signedOn(self):
+        self.lineRate = 2
+        for channel in self.factory.channels:
+            self.join(channel)
+
+        textdata = yaml.load(open(SOURCEFILE))
+        for category, responses in textdata.iteritems():
+            self.replies[category] = BeerBotReply(responses)
+
+        for cmd in commands_src:
+            c = BeerBotCommand(cmd, textdata)
+            commands.append(c)
+
+    def noop(self):
+        messages = [ u for u in globals() if u.startswith('msgs_') ]
+        for m in messages:
+            l = globals()[m]
+            r = BeerBotReply(l)
+            self.replies[m[len("msgs_"):]] = r
+
+    def func_wakeup(self, cmd, nick, channel, message):
+        """
+        Triggered by wake up god command. Lists the pubs and invites the
+        votes.
+        """
+        if self.awake:
+            return
+
+        self.awake = True
+
+        self.msg(channel, self.pick_reply("join"))
+        self.msg(channel, self.pick_reply("whereto"))
+        for pub in pubs:
+            self.msg(channel, "%s?" % pub)
+        self.msg(channel, self.pick_reply("pleasevote"))
+
+    def joined(self, channel):
+        if datetime.date.today().isoweekday() != 5: # friday
+            self.msg(channel, self.pick_reply("fridayyet"))
+
+
+    def userRenamed(self, oldname, newname):
+        """
+        Handle user renames to avoid multiple votes with different nicks
+        """
+        for user, aliases in self.user_names.iteritems():
+            if oldname == user or oldname in aliases:
+                if not newname in aliases or newname != user:
+                    aliases.append(newname)
+                    return
+        self.user_names[oldname] = [newname]
+
+    def user_nick(self, nick):
+        """
+        Return the user's nickname, ignoring all renames the user had since
+        """
+        for user, aliases in self.user_names.iteritems():
+            if nick == user or nick in aliases:
+                return user
+        return nick
+
+    def reply_private(self, nick, message):
+        """
+        Reply to a user in a private chat
+        """
+        if nick not in self.private_users.keys():
+            self.msg(nick, "%s" % self.pick_reply("private"))
+            self.private_users[nick] = 1
+        else:
+            msg = self.pick_reply("private")
+            self.msg(nick, "%s" % msg)
+
+    def vote_for_pub(self, nick, channel, message, pub):
+        """
+        Count the selected pub as a vote by this user.
+        Detects multiple votes.
+        """
+        sanitized_nick = self.user_nick(nick)
+        for pubname, nicks in self.votes.iteritems():
+            if sanitized_nick in nicks:
+                self.reply_to_user(channel, nick, self.pick_reply("overselection"))
+                return
+
+        self.votes[pub].append(sanitized_nick)
+        self.reply_to_user(channel, nick, self.pick_reply("vote"))
+
+
+    def func_add_pub(self, cmd, nick, channel, message):
+        """
+        Add a pub to the list available for voting
+        """
+        new_pub = None
+        words = message.split()
+        for i in range(0, len(words)):
+            if words[i] in cmd.triggers:
+                new_pub = words[i+1]
+                if new_pub.lower() == "the":
+                    new_pub = words[i+2]
+                break
+
+        if new_pub in pubs:
+            return
+        pubs.append(new_pub)
+
+        self.reply_to_user(channel, nick, cmd.replies.next())
+
+    def func_finish(self, cmd, nick, channel, message):
+        """
+        Close up and leave the channel.
+        """
+        pub = max([(len(v), k) for k, v in self.votes.iteritems()])[1]
+
+        self.msg(channel, self.pick_reply("whodecided") % pub)
+        self.msg(channel, self.pick_reply("downstairs"))
+        self.msg(channel, self.pick_reply("wisecracks"))
+        self.leave(channel, reason="my work is done here")
+
+    def parse_msg(self, nick, channel, message):
+        """
+        Parse a message. Look for a pub and add that as a vote. Respond with
+        something else if the message is invalid.
+        """
+        selected_pub = []
+        for pub in pubs:
+            if pub in message.lower():
+                selected_pub.append(pub)
+
+        if len(selected_pub) == 0:
+            self.reply_to_user(channel, nick, self.pick_reply("invalid"))
+        elif len(selected_pub) > 1:
+            self.reply_to_user(channel, nick, self.pick_reply("toomany"))
+        else:
+            self.vote_for_pub(nick, channel, message, selected_pub[0])
+
+    def func_noop(self, cmd, nick, channel, message):
+        """
+        Reply with something, but don't do anything else.
+        """
+        self.reply_to_user(channel, nick, cmd.replies.next())
+
+    def func_unignore(self, cmd, nick, channel, message):
+        """
+        Unignore the user's nick
+        """
+        ignoreuser = None
+        words = message.split()
+        for i in range(0, len(words)):
+            if words[i] in cmd.triggers:
+                ignoreuser = words[i+1]
+                break
+
+        if not ignoreuser in self.ignore_users:
+            return
+
+        self.ignore_users.remove(ignoreuser)
+        self.reply_to_user(channel, ignoreuser, cmd.replies.next())
+
+    def func_ignore(self, cmd, nick, channel, message):
+        """
+        Ignore the user's nick
+        """
+        ignoreuser = None
+        words = message.split()
+        for i in range(0, len(words)):
+            if words[i] in [t.strip() for t in cmd.triggers]:
+                ignoreuser = words[i+1]
+                break
+
+        if not ignoreuser or ignoreuser in self.ignore_users:
+            return
+
+        self.reply_to_user(channel, ignoreuser, cmd.replies.next())
+        self.ignore_users.append(ignoreuser)
+
+        # FIXME: list channel nicks, search for them in message, then add to
+        # ignore list
+
+    def func_tally(self, cmd, nick, channel, message):
+        """
+        Reply to a request for the vote tally
+        """
+        if len(self.votes.keys()) == 0:
+            self.reply_to_user(channel, nick, self.pick_reply("novotes"))
+            return
+
+        self.reply_to_user(channel, nick, cmd.replies.next());
+        self.reply_to_user(channel, nick, ", ".join(["%s: %d" % (pub, len(self.votes[pub])) for pub in self.votes.keys()]))
+        self.reply_to_user(channel, nick, self.pick_reply("tallyend"))
+
+    def func_verdict(self, cmd, nick, channel, message):
+        """
+        Reply to a request for a verdict
+        """
+        if not self.done:
+            self.reply_to_user(channel, nick, self.pick_reply("noverdict"))
+            return
+
+    def func_shut_up(self, cmd, nick, channel, message):
+        if datetime.date.today().isoweekday() != 5: # friday
+            self.reply_to_user(channel, nick, cmd.replies.next())
+            self.leave(channel, reason="my work is done here")
+            return
+        else:
+            self.reply_to_user(channel, nick, self.pick_reply("notshuttingup"))
+
+    def func_list_pubs(self, cmd, nick, channel, message):
+        """
+        List the set of pubs available for voting
+        """
+        self.reply_to_user(channel, nick, ", ".join(pubs))
+
+    def func_cancel_vote(self, cmd, nick, channel, message):
+        """
+        Handle vote cancellation
+        """
+        sanitized_nick = self.user_nick(nick)
+        for pub, votes in self.votes.iteritems():
+            if sanitized_nick in votes:
+                votes.remove(sanitized_nick)
+                if len(votes) == 0:
+                    del self.votes[pub]
+                    break
+        self.reply_to_user(channel, nick, cmd.replies.next())
+
+    def parse_god_command(self, cmd, nick, channel, message):
+        """
+        Search for the god comand in the message and handle it accordingly.
+        Return True if the message was handled, False otherwise
+        """
+        if not nick in GOD_USERS:
+            self.reply_to_user(channel, nick, self.pick_reply("ungodly"))
+            return True
+        else:
+            func = getattr(self, cmd.func)
+            func(cmd, nick, channel, message)
+            return True
+        return False
+
+    def parse_command(self, cmd, nick, channel, message):
+        """
+        Search for the command in the message and handle it accordingly.
+        Return True if the message was handled, False otherwise
+        """
+        pprint(cmd)
+        print message
+        if not self.validate_cmd(cmd, nick, channel, message):
+            return True
+
+        func = getattr(self, cmd.func)
+        func(cmd, nick, channel, message)
+        return True
+
+    def private_chat(self, nick, channel, message):
+        """
+        Called for messages in a private chat.
+        """
+        self.reply_private(nick, message)
+
+    def handle_command(self, nick, channel, message):
+        """
+        Parse message for a potential command and respond.
+        Return True if handled, False otherwise.
+        """
+        for cmd in commands:
+            if cmd.triggered_by(message):
+                return self.parse_command(cmd, nick, channel, message)
+        return False
+
+    def handle_about_chat(self, nick, channel, message):
+        """
+        beerbot is mentioned, but not talked to directly. 30% chance of
+        beerbot commenting on it
+        """
+        if random.randint(0,2) == 0:
+            self.msg(channel, self.pick_reply("unrelated"));
+
+    def privmsg(self, user, channel, message):
+        """
+        Called for any message on a channel, or a message directly in a
+        private chat.
+        """
+        nick, _, host = user.partition('!')
+
+        time.sleep(1) # make the reply look more authentic by adding a delay
+
+        message.strip()
+        if channel == self.nickname:
+            self.private_chat(nick, channel, message)
+        # direct message to beerbot
+        elif message.lower().startswith(self.nickname.lower()):
+            if nick in self.ignore_users and not nick in GOD_USERS:
+                return
+            elif self.handle_command(nick, channel, message):
+                pass
+            elif not self.done and self.awake:
+                    self.parse_msg(nick, channel, message)
+        # talking about, but not to beerbot
+        elif self.nickname.lower() in message.lower():
+            self.handle_about_chat(nick, channel, message)
+
+class BeerBotFactory(protocol.ReconnectingClientFactory):
+    protocol = BeerBotProtocol
+    channels = ['##beerbot-test']
+
+
+if __name__ == '__main__':
+    reactor.connectTCP(HOST, PORT, BeerBotFactory())
+    log.startLogging(sys.stdout)
+    reactor.run()

@@ -1,0 +1,408 @@
+body.notoc
+{
+margin-left:auto;
+margin-right:auto;
+}
+.producttitle {
+	color:black;
+	background-color:transparent;
+	display:none;
+}
+
+.section h1.title {
+	color:#444444;
+	font-size:12pt;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color:#444444;
+}
+
+table {
+	border:1px solid #aaa;
+}
+
+table th {
+	background-color:#900;
+border-top:none;
+color:#444444;
+}
+
+table tr.even td {
+	background-color:#f5f5f5;
+}
+
+.term{
+	color:#444444
+}
+
+.revhistory table th {
+	color:#444444;
+}
+
+.titlepage .edition {
+	color: #444444;
+	display:none;
+}
+
+span.remark{
+	background-color: #ffff00;
+}
+/*
+.docnav
+{
+background-color:#ededed;
+border-top:none;
+border-left : 1px solid gray;
+border-right : 1px solid gray;
+border-bottom : 1px solid #d8d8d8;
+padding-top:1.8em;
+padding-bottom:1em;
+padding-left:1em;
+padding-right:1em;
+width:auto;
+}
+.docnav li
+{
+margin-top:-0.3em;
+margin-left:0.3em;
+margin-right:0.3em;
+}
+
+ul.docnav
+{
+margin:0;
+}
+
+
+.confidential
+{
+background-color:transparent;
+color: #aa0000;
+line-height:0;
+font-size:14pt;
+font-weight:600;
+}
+*/
+
+.confidential {
+	position: absolute;
+	width: 100%;
+	top: 33px !important;
+	left: 0px;
+}
+
+.draft .main-content
+{
+     background-image: url("../images/watermark-draft.png");
+     background-position: center center;
+     background-repeat: repeat-y;
+}
+
+
+/* Default CSS for Engineering Services and Operations Theme */
+
+body {
+	font-family : "Liberation Sans", helvetica, verdana, arial, sans-serif;
+	font-size : 9pt;
+	background-image : url("../images/title_bg.png");
+	background-repeat : repeat-x;
+	background-color : #eaeaea;
+	padding-top : 10px;
+	padding-left : 10px;
+	padding-right : 10px;
+	margin-top : 0;
+	width : 850px;
+	margin-left : auto;
+	margin-right : auto;
+	color : #333;
+}
+
+p {
+	line-height : 120%;
+	margin-bottom : 1em;
+}
+
+h1, h2, h3 {
+	margin : 0;
+	text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.50);
+}
+
+a, a:visited, a:link {
+	color : #0066CC;
+	text-decoration : none;
+	border : none;
+	outline : none;
+	cursor:pointer;
+}
+
+a img {
+	border : none;
+}
+
+a:hover {
+	color : #0066CC;
+}
+
+
+
+/*
+  Rules for the Header (the area with the ESO logo and the Product, Performance,
+  Plan, People links)
+*/
+.header {
+	padding-bottom : 5em;
+	margin-top : 6em;
+}
+
+.header .logo {
+	display : inline;
+	float : left;
+	padding-top : 3px;
+}
+
+.header .logo a
+{
+border:none;
+}
+
+.header img {
+	border-style : none;
+	display:inline;
+	margin:0!important;
+}
+
+.header .links {
+	display : inline;
+	float : right;
+	text-align : right;
+	margin-top : 2px;
+	font-weight : 600;
+}
+
+.header .links a {
+	padding-left : 5px;
+	padding-right : 5px;
+	border:none;
+} 
+
+
+
+
+/*
+  Rules for the Main Content Area header (The bar with the menu items and the 
+  name/icon of the page or application)
+*/
+.main-content-header {
+	background-color : #d1d1d1;
+	background-image : url("../images/main-content-bumper.png");
+	background-repeat : repeat-x;
+	border-left : 1px solid gray;
+	border-right : 1px solid gray;
+	border-bottom : 1px solid #a7a8a6;
+	padding-top : 6px;
+	height : 2.7em;
+	text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.50);
+}
+
+.top-menu-item {
+	display : inline;
+	float : right;
+	padding-right : 1em;
+	padding-left : 1em;
+	color : #777;
+	border-left : 1px solid #a7a8a6;
+	font-weight : bold;
+	line-height : 2.7em;
+	
+}
+
+.top-menu-item#active {
+	background-color : white;
+	color : #555;
+	border-bottom : 1px solid white;
+}
+
+.main-content-header .main-content-header-text {
+	background-image : url("../images/app_logo.png");
+	background-repeat : no-repeat;
+	font-size : 11pt;
+	font-weight : bold;
+	color : #444;
+	margin-left : 0.5em;
+	margin-top : -3em;
+	padding-left : 1.8em;
+	line-height : 2em;
+} 
+
+
+
+/*
+  Rule for the Main Content Area
+*/
+.main-content {
+	background-color : white;
+	border-left : 1px solid gray;
+	border-right : 1px solid gray;
+	border-bottom : 1px solid #d8d8d8;
+	min-height : 30em;
+	padding-top : 2em;
+	padding-left : 2em;
+	padding-right : 2em;
+	padding-bottom : 3em;
+} 
+
+
+
+/* Rules for the Footer area */
+.main-content-footer {
+	font-weight : bold;
+	font-size : 8pt;
+	padding : 1em;
+	padding-top : 1.5em;
+	padding-bottom : 3em;
+	margin-left : 10px;
+	margin-right : 10px;
+	background-color : #333333;
+}
+
+.main-content-footer div {
+	float : left;
+	color : #aaa;
+	margin-top : -6px;
+	padding-left : 1em;
+}
+
+.main-content-footer img {
+	float : right;
+	margin-top : -4px;
+	padding-right : 1em;
+}
+
+.content-block {
+	background-image : url(../images/content-block-bg.png);
+	background-repeat : repeat-x;
+	background-color : #e5e5e5;
+	margin-top : 1em;
+	margin-bottom : 2em;
+	padding-bottom : 1em;
+	border : 1px solid #c4c5c5;
+	padding : 0 1em 0 1em;
+	width : 95%;
+	margin-left : auto;
+	margin-right : auto;
+} 
+
+
+/*Dialog Stylez*/
+.ui-dialog {
+background-color:white;
+position:absolute;
+}
+
+.ui-dialog-titlebar {
+background-color:#d1d1d1;
+background-image:url(../images/main-content-bumper.png);
+background-repeat:repeat-x;
+padding-top:12px;
+padding-bottom:8px;
+padding-left:9px;
+font-weight:700;
+}
+
+.ui-dialog-content{
+padding-left:1em;
+padding-right:2em;
+padding-top:0.5em;
+padding-bottom: 0.5em;
+border: 1px solid #a7a8a6;
+}
+
+.ui-dialog-titlebar .ui-icon {
+background-image:url(../images/x.png);
+margin-right:5px;
+}
+
+div.ui-widget-overlay {
+position:absolute;
+background-color:#000;
+opacity:.5;
+left:0;
+top:0;
+}
+
+.ui-icon {
+float:right;
+width:16px;
+height:18px;
+margin-top:-2px;
+text-align:right;
+background-repeat:no-repeat;
+overflow-x:hidden;
+overflow-y:hidden;
+cursor:pointer;
+}
+
+/*Table Styles*/
+table {
+	border-collapse : collapse;
+	font-size : 12px;
+	font-weight : 400;
+	width : 100%;
+	border-bottom : 1px solid #bfbfbf;
+	border-top : 1px solid #bfbfbf;
+	margin : 0 auto 1em;
+}
+
+tr td {
+	padding-top : 4px;
+	padding-bottom : 4px;
+	padding-left : 4px;
+	border-left : 1px solid #bfbfbf;
+	border-right : 1px solid #bfbfbf;
+border-bottom : 1px solid #bfbfbf;
+}
+
+tr th {
+	padding-top : 4px;
+	padding-bottom : 4px;
+	padding-left : 4px;
+	border-left : 1px solid #bfbfbf;
+	border-right : 1px solid #bfbfbf;
+	border-bottom : 1px solid #bfbfbf;
+	background-image : url(../images/table-header.png);
+	text-align : left;
+	text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.50);
+}
+
+tr.even {
+	background-color : #e5e5e5;
+}
+
+tr.odd {
+	background-color : #f4f4f4;
+}
+
+tr {
+	padding : 5px;
+border:0;
+}
+
+.table-boolean-false, .table-boolean-true, .table-boolean-head {
+	text-align : center;
+	width : 5em;
+}
+
+.table-boolean-true {
+	color : green;
+}
+
+.table-boolean-false {
+	color : red;
+} 
+
+div.RoleCreateBugPara {
+	text-align: right;
+	font-size: 0.5em;
+}
+

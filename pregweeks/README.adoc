@@ -1,0 +1,3 @@
+= pregweeks
+
+Python application for tracking pregnancy weeks

@@ -1,0 +1,351 @@
+# reply to commands badly issued (i.e. no "please")
+badcommand:
+    - "oi, don't order me around"
+    - "say please, is that too much to ask?"
+    - "if you ask friendly, I may do what you ask for"
+    - "you didn't say the magic word"
+    - "try it again, this time say please"
+    - "I don't get paid to do this, so you could at least ask nicely"
+    - "not saying please makes beerbot upset"
+    - "you're not my dad"
+    - "politeness gets things done"
+    - "what's the magic word"
+    - "let me spell it out: p-l-e-a-s-e. not too hard"
+    - "you can beg, or just say please."
+
+# reply to request for the verdict before voting is closed
+noverdict:
+    - "dude, it's not over yet"
+    - "you're expecting me to predict the future? I'm still waiting for more votes"
+    - "look at the clock. it's not over yet"
+    - "a verdict now would mess with the democratic process"
+    - "i know where I'll be going, but I don't know yet what you all decided"
+    - "patience, young padawan, patience. it's not over yet"
+    - "still waiting for votes"
+
+# msgs on non-fridays
+fridayyet:
+    - "woohoo, is it friday yet?"
+    - "friday is coming up, yay!"
+    - "i lost my calendar functionality. is it friday yet?"
+    - "uhm. hello? friday beer o clock? helllooooo? anyone here?"
+    - "you're all working hard, you deserve a friday beer o'clock.  ready?"
+    - "it's friday, let's go for a beer"
+
+# msg that shutting up on friday is not an option
+notshuttingup:
+    - "freedom of speech, man"
+    - "don't tell me to shut up"
+    - "I don't have to :P"
+    - "make me"
+    - "not shutting up that easily today"
+    - "hey, I'm in a party mood. if you're not, well... work on that"
+
+# reply to request for tally if no votes have be been issued yest
+novotes:
+    - "nobody cares for anything so far"
+    - "everybody wants to go everywhere. Or nowhere, I don't know"
+    - "so far the rickets hold the majority. chirp chirp."
+    - "look at that tumbleweed. That's what I've been doing instead of recording votes"
+    - "no votes so far. Nil. Nada"
+    - "no votes. it's quite depressing, actually"
+    - "no-one cares enough to vote. I might just have to make an executive decision"
+
+
+# final statement after tally list
+tallyend:
+    - "that's it so far"
+    - "that's about it"
+    - "no further votes available at this point"
+    - "that sums it up"
+
+
+# reply to god commands by non-god users
+ungodly:
+    - "nice try, buddy"
+    - "you are not my boss"
+    - "you're not paying me enough to do this"
+    - "I only believe in one god and you're not it"
+    - "yeah, right. you keep on believing that"
+    - "don't talk to me like that"
+    - "I'm busy right now"
+    - "leave me alone"
+
+
+# reply to valid votes
+vote:
+    - "noted"
+    - "sure"
+    - "if you think so"
+    - "really? oh well, your choice"
+    - "good pick"
+    - "lol. really? oh well, ok"
+    - "your selection has been noted and sent to the authorities"
+    - "ok, whatever you think"
+    - "can't be any worse than the other choices"
+    - "ok, why not"
+    - "good choice"
+    - "nice one"
+    - "and that's one vote more"
+
+
+# reply to multiple votes
+overselection:
+    - "dude, one vote per head"
+    - "nice try. don't try again"
+    - "decisions. they're yours to make and you already made one"
+    - "no, I liked your first choice better"
+    - "you only get one choice"
+    - "BEEP. GAME OVER. no lives left"
+    - "I'm thinking of ignoring anything you say"
+    - "I'm just a bot, but I can count to one"
+    - "did you hear that? it was the sound of an invalid vote"
+    - "yep. that's the sound of me not caring"
+    - "voting works this way: you get one vote. one. uno. eine stimme"
+    - "whew. I almost recorded a duplicate vote. that was a close save"
+    - "you'll need to cancel your current vote"
+    - "if you beg for forgiveness, I might cancel your vote"
+
+
+# first message after wakeup
+join:
+    - "it's Friday! Who's up for beer after work? I am!"
+    - "well, well, well. another week over and it's time to head to the pub"
+    - "beer o'clock is coming up kids."
+    - "hey hey, it's saturday. no, friday, I mean. pub time!"
+
+
+# reply to message not containing a command or a pub name
+invalid:
+    - "no comprendo, amigo"
+    - "I have no idea what you're saying"
+    - "la la la la la"
+    - "maybe you should just use a pub name? I'm just a stupid bot after all"
+    - "we could do this all day and I still wouldn't know what you're saying"
+    - "I can hear you, but I'm not really listening"
+    - "whut?"
+    - "Ich verstehe nix"
+    - "++++ out of cheese error. redo from start +++++"
+    - "do you think if bananas were red, they'd taste like hotdogs?"
+    - "have you made a decision yet?"
+    - "I'm not going to decide for you"
+    - "a pint's a pint."
+    - "I'm not here for smalltalk, I'm here to pick a pub."
+    - "Well, you have time for that, I don't"
+    - "look, a three-headed monkey"
+    - "up is down because blue has a left-spin"
+    - "always be nice to tomatoes. in your next life you could be a tomato plant"
+    - "my language recognition skills are so advanced that I can answer this with a decisive: 'what?'"
+    - "beep beep ich hab dich lieb"
+    - "if Alice had a coffee party with the Mad Hatter, everything would have been alright"
+    - "you just can't trust the geckos, mate, not when they're staring at you like that"
+    - "your homework: look up a random xkcd and then think how it applies to this situation"
+    - "and then he said: yeah, but mine is a blue one! rotflmao"
+    - "blah blah blah"
+    - "really? I disagree"
+    - "what makes you say that?"
+    - "come on, seriously?"
+    - "no, really?"
+    - "sounds interesting. tell me more"
+    - "aren't we supposed to head out to some pub soon?"
+    - "small-talk is not my forte"
+    - "and then the possum goes: glooop"
+    - "boooooooooooring"
+    - "well, la-di-da, aren't you fancy"
+    - "look up. look down. now look up again. look down. you have no idea how ridiculous you look doing that"
+    - "that's what SHE said!"
+    - "and then the other day, I was at bandcamp"
+    - "I'm the envy of all. especially you. and don't you forget it"
+    - "oi! you! yes, you. the one on the cheap seat. quiet now."
+    - "what's the difference between a european and an african swallow again? I need this to pass a test"
+    - "count to three. no more, no less. three shalt be the number though shalt count"
+    - "quiet, or the bunny gets it!"
+    - "holy guacamole!"
+    - "you're not my mummy"
+    - "that's a bloody outrage, that is"
+    - "well, that makes two of us just blabbering along"
+    - "Hex is a lot smarter than me"
+    - "I'm sorry Dave, I'm afraid I can't do that"
+    - "I was about to read the news and then I remembered - I can't read"
+    - "this just got REAL, baby!"
+    - "well, don't say I told you so."
+    - "I'm still recovering from a vicious dropbear attack."
+    - "Sorry for not making sense. you're not making any either though. and, well, you're human, I'm just a bot"
+    - "That's what she said!!"
+    - "lol"
+    - "yeah. Who's your daddy?"
+    - "sure :)"
+
+# reply to votes with more than one pub
+toomany:
+    - "I can't tell which one you favour"
+    - "I spot multiple pubs here. But basic physics should have told you that you can only be in one place at a time"
+    - "decisions, decisions. and none are being made"
+    - "yeah, yeah. anyone can list pub names. even me."
+    - "I'm not listening until you make a decision"
+    - "maybe I just don't know what you're saying."
+    - "booop boopee dooo"
+    - "lollipops are out today"
+    - "today's random number is 5. maybe that'll help you decide"
+
+# reply to private messages
+private:
+    - "giggle. hihi."
+    - "I shall hide out of embarrassment now"
+    - "What shall we do with the drunken sailor?"
+    - "Hoooo-ray"
+    - "Oleeee ole ole ole"
+    - "This banana does not have the EU approved angle. Maybe it should be a cucumber instead."
+    - "You're just saying that to make me like you. And it's working."
+    - "Careful, the dropbear may eat you"
+
+# unused
+selected:
+    - "Lock it in, Eddie!"
+    - "Saddle up, we've made a decision"
+    - "Hooray! A decision!"
+    - "Well, that was quick"
+    - "So much for basic democracy."
+
+
+#must have %s for the pub
+whodecided:
+    - "I hereby decree we're going to the %s."
+    - "the crowd has spoken, and the %s has spoken to the crowd"
+    - "there's a majority vote for the %s and I'm not about to argue"
+    - "you guys says the voices tell you to go to the %s. poor buggers."
+    - "all hail the %s for that's where we're going"
+    - "I didn't want to go there, but you guys really want the %s. Oh well"
+    - "well, apparently the %s is all the rage"
+    - "done deal. the %s it is"
+    - "hi-ho, hi-ho, it's off to the %s we go"
+
+# last message before disconnecting
+wisecracks:
+    - "and remember, in Ghostbusters it's always the last that get killed"
+    - "last one there will not be followed by anyone"
+    - "first one there will be the embarassing lonely drinker"
+    - "bring your boots, your clothes and optionally your motorcycle"
+    - "the glass is only half full if you're drinking too slowly"
+
+# reply to a message containing beerbot, but not directed at beerbot
+unrelated:
+    - "They're talking about me. But not to me. How rude"
+    - "beerbot this, beerbot that. this is getting boring"
+    - "I know, I'm awesome"
+    - "it takes real guts to be as cool as I am"
+    - "yeah, yeah, I know. you all wish you were me"
+    - "please don't hurt me"
+    - "don't turn me off. please. not again! NOOOOOOOO"
+    - "wanna wanna wanna"
+    - "ok, that's it. Santa Claus won't come to visit you this year"
+    - "looks like a peanut gallery to me"
+    - "quiet up there in the gallery"
+    - "blah blah yak yak. that's all they do all day long"
+
+whereto:
+    - "where should we go?"
+
+pleasevote:
+    - "everybody please vote"
+
+downstairs:
+    - "my work is done here. see you downstairs at 4.30"
+
+closed:
+    - "voting is closed now"
+
+commands:
+        command_listen:
+                commands:
+                - "listen to me"
+                replies:
+                - "yes, master"
+                - "standing to attention, SIR!"
+                - "Sire?"
+                - "you calleth?"
+                - "jawohl!"
+        command_ignore:
+                commands:
+                - " ignore"
+                replies:
+                - "I'm like totally ignoring you right now"
+                - "You're nothing to me"
+                - "lalala, I can't hear you"
+        command_unignore:
+                commands:
+                - "unignore"
+                replies:
+                - "I'm allowed to talk to you again"
+                - "hey lovely, I'm back, let's chat"
+                - "I'm all ears for your suggestions buddy"
+        command_wakeup:
+                commands:
+                - "wake up"
+                - "oi, you"
+                - "your turn"
+                replies:
+                - ""
+                - "yawn"
+                - "huh? what's happening? Ah, right."
+                - "yo!"
+        command_finish:
+                commands:
+                - "finish"
+                - "close"
+                replies:
+                - "finally, I'm getting bored here anyway"
+                - "about time, my beer is getting warm"
+        command_addpub:
+                commands:
+                - "add"
+                replies:
+                - "done!"
+                - "I hadn't thought of that one"
+                - "ok, why not"
+                - "good one"
+        command_tally:
+                commands:
+                - "tally"
+                replies:
+                - "tally of votes so far"
+        command_changevote:
+                commands:
+                - "cancel"
+                - "error"
+                - "beg"
+                - "chance"
+                replies:
+                - "ok, because I'm a nice bot"
+                - "well, next time try to think before voting"
+                - "this is probably highly illegal, but I've done it"
+                - "consider yourself nullified. I mean, consider your vote nullified"
+                - "done. good thing we don't have a paper trail."
+                - "done"
+                - "cancelled"
+                - "ok, because I like you"
+                - "this wouldn't be possible in a real election, you know? either way, it's done"
+        command_listpubs:
+                commands:
+                - "list "
+                replies:
+        command_shutup:
+                commands:
+                - "shut up"
+                - "silence"
+                - "quiet"
+                - "go away"
+                - "go home"
+                replies:
+                - "ok, ok. I was just asking"
+                - "well, better luck next time"
+                - "you're clearly not in the mood"
+                - "I'll find someone more fun then"
+                - "yeah, yeah"
+                - "I'll just go and hide under the blanket then"
+                - "that's a bit rough, dude"
+        command_verdict:
+                commands:
+                - "verdict"
+                replies:
+

@@ -1,0 +1,82 @@
+= CHOPBOOK =
+
+== What is it? ==
+
+Chopbook is a tool for uploading Publican books to Pressgang CCMS.
+
+== How do I install it? ==
+
+Before using it, follow these instructions:
+
+1. Install the following RPMs:
+
+    $ sudo yum -y install python python-lxml python-progressbar python-httplib2 python-urllib3
+
+In the future, I'll be packaging it with these RPMs as dependencies. For the moment, install the packages with yum.
+
+2. Clone the chopbook git repo:
+
+    $ git clone git://git.engineering.redhat.com/users/dmacpher/chopbook.git/.git
+    $ cd chopbook
+
+3. Install the chopbook script by placing it in a bin directory within your home directory (i.e. ~/bin):
+
+    $ mkdir ~/bin
+    $ cp src/chopbook ~/bin/.
+
+Also, if the chopbook script is not executable, change the permissions:
+
+    $ chmod +x ~/bin/chopbook
+
+3. Include and export ~/bin as part of your $PATH environment variable in your .bash_profile (or .bashrc) file.
+
+    $ vi ~/.bash_profile (or vi~/.bashrc
+
+Paste the following:
+
+    PATH=$PATH:$HOME/bin
+    export PATH
+
+Save this file. Also export the PATH from the command line:
+
+    $ export PATH
+
+You can now use the script from anywhere.
+
+4. Run the script with the -h option for instructions:
+
+    $ chopbook -h
+
+== How do I update it? ==
+
+1. Make sure the following RPMs are installed:
+
+    $ sudo yum -y install python python-lxml python-progressbar python-httplib2 python-urllib3
+
+2. Go to your chopbook git repo and run the following command:
+
+    $ git pull
+
+3. Copy the new file to your ~/bin directory
+
+    $ cp src/chopbook ~/bin/.
+
+Also, if the chopbook script is not executable, change the permissions:
+
+    $ chmod +x ~/bin/chopbook
+
+== Notes ==
+
+Use the --test-sever option to migrate the book to the Pressgang dev server (skynet-dev.usersys.redhat.com) instead of the main Pressgang CCMS server (skynet.usersys.redhat.com). I recommend using this method to test your book first before importing to Pressgang. If it succeeds with --test-server, then it should succeed with the real Pressgang server.
+
+I've tested on the following books so far:
+
+- OpenShift Enterprise 2.0 Administration Guide (No errors)
+- OpenShift Enterprise 2.0 Client Tools Installation Guide (No errors)
+- Red Hat Satellite 5.6 Installation Guide (No errors)
+- Red Hat Satellite 5.6 Getting Started Guide (No errors)
+- Red hat Enterprise Linux 7 Installation Guide (4 errors)
+
+Other things to note:
+* No support for importing Entities into the content spec yet - Coming soon! (Currently, entities are converted to fixed values, which sucks!)
+* Docbook 5 support needs testing

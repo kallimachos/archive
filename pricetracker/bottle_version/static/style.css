@@ -1,0 +1,43 @@
+h1 {
+        text-align: center;
+    }
+body {
+    text-align: center;
+    background: lightgreen;
+    /*background: url("http://www.velofix.com/wp-content/uploads/2013/03/Cycling_golf.jpg");*/
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: black;
+    outline: thick;
+    font: bold;
+    font-family: Helvetica;
+}
+p {
+    font-size: 24px;
+}
+input {
+    border: 0;
+    padding: 12px;
+    font-size: 18px;
+}
+input[type="submit"] {
+    background: blue;
+    color: black;
+}
+
+#debug {
+    text-align: left;
+}
+
+#log {
+    text-align: left;
+}
+
+#footer {
+    text-align: center;
+    bottom : 0;
+    height : 40px;
+    margin-top : 40px;
+  }

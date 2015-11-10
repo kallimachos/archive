@@ -1,0 +1,1 @@
+{"layout": "internal", "orientation": "portrait", "package": "com.domain.test", "include_pil": false, "expansion": false, "name": "Test App", "source": false, "icon_name": "Test", "version": "1", "permissions": ["VIBRATE"], "include_sqlite": false, "numeric_version": "1"}

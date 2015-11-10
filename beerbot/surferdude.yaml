@@ -1,0 +1,221 @@
+# reply to commands badly issued (i.e. no "please")
+badcommand:
+    - "yeah, man, I have no idea"
+    - "sorry dude, can't do that"
+    - "whut? lol. no"
+    - "man, really, you need to say please"
+    - "peace bro, just say please"
+    - "don't be so aggro man"
+    - "man, you're so amped today"
+
+# reply to request for the verdict before voting is closed
+noverdict:
+    - "dude, it's not over yet"
+    - "look at the clock. it's not over yet"
+    - "patience, dude, patience. it's not over yet"
+    - "still waiting for votes"
+
+# msgs on non-fridays
+fridayyet:
+    - "woohoo, is it friday yet?"
+    - "friday is coming up, yay!"
+    - "i lost my calendar functionality. is it friday yet?"
+    - "uhm. hello? friday beer o clock? helllooooo? anyone here?"
+    - "you're all working hard, you deserve a friday beer o'clock.  ready?"
+    - "it's friday, let's go for a beer"
+
+# msg that shutting up on friday is not an option
+notshuttingup:
+    - "freedom of speech, man"
+    - "don't tell me to shut up"
+
+# reply to request for tally if no votes have be been issued yest
+novotes:
+    - "aww, man. no-one wants to go anywhere"
+    - "what a bunch of losers, no-one votes"
+
+# final statement after tally list
+tallyend:
+    - "that's da list so far"
+    - "that's it for now"
+    - "no more votes on my board here"
+
+# reply to god commands by non-god users
+ungodly:
+    - "sorry dude, I can't do that"
+    - "nice try, dude"
+    - "right. can't do that, man"
+    - "dork"
+
+# reply to valid votes
+vote:
+    - "good choice, bro"
+    - "sure"
+    - "righty-o"
+    - "cool as ice"
+    - "good pick"
+    - "nice one"
+    - "chyeah"
+    - "sha"
+    - "totally dude"
+    - "juicy call"
+
+# reply to multiple votes
+overselection:
+    - "dude, one vote per head"
+    - "that's bogus man, you can't vote twice"
+
+# first message after wakeup
+join:
+    - "cowabunga dudes, what's up?"
+
+# reply to message not containing a command or a pub name
+invalid:
+    - "that's dope, dude!"
+    - "yeah. Who's your daddy?"
+    - "dude or dudette, I don't know what you're saying"
+    - "that's totally foobar, man"
+    - "now you're just flailing man"
+    - "chillax, dude"
+    - "you're my hero, brody"
+    - "chill man, we've got time"
+    - "dude, seriously, come on"
+    - "sure, but I can't be your wingman tonight"
+    - "yo mama!"
+    - "that's totally swick man"
+
+# reply to votes with more than one pub
+toomany:
+    - "too many pubs dude, I don't know what to do"
+
+# reply to private messages
+private:
+    - "giggle. hihi."
+    - "I shall hide out of embarrassment now"
+    - "What shall we do with the drunken sailor?"
+    - "Hoooo-ray"
+    - "Oleeee ole ole ole"
+    - "This banana does not have the EU approved angle. Maybe it should be a cucumber instead."
+    - "You're just saying that to make me like you. And it's working."
+    - "Careful, the dropbear may eat you"
+
+# unused
+selected:
+    - "Lock it in, Eddie!"
+    - "Saddle up, we've made a decision"
+    - "Hooray! A decision!"
+    - "Well, that was quick"
+    - "So much for basic democracy."
+
+#must have %s for the pub
+whodecided:
+    - "word is out dudes and dudettes, we're going gnarly at the %s"
+
+# last message before disconnecting
+wisecracks:
+    - "let's try for a mexican wave today"
+
+# reply to a message containing beerbot, but not directed at beerbot
+unrelated:
+    - "man, you're talking too much"
+    - "I know, I'm awesome"
+    - "kiff?"
+    - "whut?"
+    - "hyper fierce gnar gnar, bro"
+    - "totally out there, I say"
+
+whereto:
+    - "I'm jonesin for a drink. Who else?"
+
+pleasevote:
+    - "vote, peeps, just vote"
+
+downstairs:
+    - "4.30 downstairs. chow chow."
+
+closed:
+    - "voting is closed now"
+
+commands:
+        command_listen:
+                commands:
+                - "listen to me"
+                replies:
+                - "yes, master"
+                - "standing to attention, SIR!"
+                - "Sire?"
+                - "you calleth?"
+                - "jawohl!"
+        command_ignore:
+                commands:
+                - " ignore"
+                replies:
+                - "I'm like totally ignoring you right now"
+                - "You're nothing to me"
+                - "lalala, I can't hear you"
+        command_unignore:
+                commands:
+                - "unignore"
+                replies:
+                - "I'm allowed to talk to you again"
+                - "hey lovely, I'm back, let's chat"
+                - "I'm all ears for your suggestions buddy"
+        command_wakeup:
+                commands:
+                - "bro, it's time"
+                - "wake up"
+                - "your turn"
+                replies:
+                - "epic, man"
+        command_finish:
+                commands:
+                - "finish"
+                - "close"
+                replies:
+                - "grand."
+        command_addpub:
+                commands:
+                - "add"
+                replies:
+                - "da bomb!"
+                - "aw, man, why didn't I think of that one"
+                - "epic"
+        command_tally:
+                commands:
+                - "tally"
+                replies:
+                - "let's have a look"
+        command_changevote:
+                commands:
+                - "cancel"
+                - "error"
+                - "beg"
+                - "chance"
+                replies:
+                - "fo' sho"
+                - "done"
+                - "cancelled"
+        command_listpubs:
+                commands:
+                - "list "
+                replies:
+        command_shutup:
+                commands:
+                - "shut up"
+                - "silence"
+                - "quiet"
+                - "go away"
+                - "go home"
+                replies:
+                - "ok, ok. I was just asking"
+                - "well, better luck next time"
+                - "you're clearly not in the mood"
+                - "I'll find someone more fun then"
+                - "yeah, yeah"
+                - "I'll just go and hide under the blanket then"
+                - "that's a bit rough, dude"
+        command_verdict:
+                commands:
+                - "verdict"
+                replies:
+

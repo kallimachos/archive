@@ -1,0 +1,9 @@
+/hfpy_code/
+/ch9_hf_code/
+/__pycache__/
+/webapp/athletes.pickle
+/webapp/cgi-bin/__pycache__/
+/webapp/cgi-bin/athletelist.pyc
+/webapp/cgi-bin/athletemodel.pyc
+/webapp/cgi-bin/yate.pyc
+/marathon/__pycache__/
