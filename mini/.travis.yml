@@ -1,0 +1,16 @@
+language: python
+branches:
+  only:
+    - master
+    - gh-pages
+python:
+  - "3.4"
+install:
+  - pip install bottle
+  - pip install requests
+  - pip install tox
+before_script:
+  - python mini/controller.py &
+  - sleep 5
+script:
+  - tox
